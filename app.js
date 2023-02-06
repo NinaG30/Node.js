@@ -1,4 +1,5 @@
-// Charge/importe le module "express" pour accéder aux méthodes d'express
+// Charge/importe le module "express" pour accéder aux méthodes d'express (.get(), .json(), .send()) middlaware
+//qui permet de faire tampon entre notre app et le client pour nous faciliter la vie
 const express = require("express");
 //Charge le module/bibliothèque de méthodes "fs" pour créer et gérer des fichiers 
 //pour y stocker ou lire des fichiers dans le programme Node
