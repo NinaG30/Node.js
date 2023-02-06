@@ -1,6 +1,6 @@
 // Charge/import le module "express" pour accéder aux méthodes d'express
 const express = require("express");
-//Charge le module "fs" pour créer et gérer des fichiers 
+//Charge le module/bibliothèque de méthodes "fs" pour créer et gérer des fichiers 
 //pour y stocker ou lire des fichiers dans le programme Node
 //require inclut le fs à notre projet
 const fs = require("fs");
@@ -20,7 +20,7 @@ app.get("/data", (request, response) => {
     } else { //sinon si tout va bien, il répondra :
         //Status 200 est le code pour dire 'tout va bien' dans Express
       response.status(200).json(JSON.parse(data)); //JSON.parse permet d'avoir un objet JS (json) 
-      //de l'argument data qui est un string
+      //de l'argument data qui est un string à ses yeux. ".json" dit qu'on veut la réponse en JSON
     }
   });
 });
