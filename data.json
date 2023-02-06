@@ -1,0 +1,38 @@
+{
+    "entrees" : [
+        {
+            "id": 1 , "name": "croquettes de poisson chat", "prix": "12 euros"
+        },
+        {
+            "id": 2 , "name": "toasts au fromage de chevre", "prix": "8 euros"
+        },
+        {
+            "id": 3 , "name": "salade nimoise", "prix": "7 euros"
+        }
+       
+    ],
+
+    "plats" : [
+        {
+            "id": 4 , "name": "filet mignon de porc", "prix": "23 euros"
+        },
+        {
+            "id": 5 , "name": "agneau aux abricots", "prix": "22 euros"
+        },
+        {
+            "id": 6 , "name": "brandade de morue", "prix": "17 euros"
+        }
+    ],
+
+    "desserts" : [
+        {
+            "id": 7 , "name": "coca", "prix": "2.50 euros"
+        },
+        {
+            "id": 8 , "name": "limonade", "prix": "2 euros"
+        },
+        {
+            "id": 9 , "name": "smoothie banane", "prix": "3.50 euros"
+        }
+    ]
+}
