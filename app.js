@@ -1,4 +1,4 @@
-// Charge/import le module "express" pour accéder aux méthodes d'express
+// Charge/importe le module "express" pour accéder aux méthodes d'express
 const express = require("express");
 //Charge le module/bibliothèque de méthodes "fs" pour créer et gérer des fichiers 
 //pour y stocker ou lire des fichiers dans le programme Node
@@ -7,7 +7,7 @@ const fs = require("fs");
 // Créér une instance d'express
 const app = express();
 
-//Cette fonction gère les demandes GET adressées au chemin "/data"
+//Cette fonction gère les demandes GET adressées à la route URL "/data"
 app.get("/data", (request, response) => {
   //lit le fichier data.json
   fs.readFile("data.json", (err, data) => {
