@@ -1,34 +1,77 @@
-// Charge/importe le module "express" pour accéder aux méthodes d'express (.get(), .json(), .send()) middlaware
-//qui permet de faire tampon entre notre app et le client pour nous faciliter la vie
 const express = require("express");
-//Charge le module/bibliothèque de méthodes "fs" pour créer et gérer des fichiers 
-//pour y stocker ou lire des fichiers dans le programme Node
-//require inclut le fs à notre projet
 const fs = require("fs");
-// Créér une instance d'express
 const app = express();
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
-//Cette fonction gère les demandes GET adressées à la route URL "/data"
-app.get("/data", (request, response) => {
-  //lit le fichier data.json
+// C'est une route qui me permet de récupérer une data par son id
+// GET "/data/:id"
+// Ex: http://localhost:3000/:arrayName/:id //changer pour entrees plats ou desserts /l'id voulu
+
+app.get("/:arrayName/:id", (request, response) => {
   fs.readFile("data.json", (err, data) => {
-    if (err) { //s'il y a une erreur alors il répondra : 
-      response.status(500).json({ 
-        //Status 500 est le code erreur dans Express
-        message: "erreur",
-        error: err,
-      });
-    } else { //sinon si tout va bien, il répondra :
-        //Status 200 est le code pour dire 'tout va bien' dans Express
-      response.status(200).json(JSON.parse(data)); //JSON.parse permet d'avoir un objet JS (json) 
-      //de l'argument data qui est un string à ses yeux. ".json" dit qu'on veut la réponse en JSON
+    if (err) {
+      erreur();
+    } else {
+      const jsonData = JSON.parse(data);
+      const dataById = jsonData[request.params.arrayName].find(        
+        (obj) => obj.id === parseInt(request.params.id)
+      );
+      if (dataById) {
+        response.status(200).json(dataById);
+      } else {
+        response.status(404).json({
+          message: "Aucun objet trouvé avec cet id",
+        });
+      }
     }
   });
 });
 
-//Expose le port 3000 
-//La fonction se lie avec l'host et le port spécifié
-app.listen(3000, () => {
-  console.log("L'application tourne sur le port 3000");
+// C'est une route qui permet d'afficher un des tableaux de mon fichier data.json
+// POST "/data"
+// Ex: http://localhost:3000/:arrayName //changer pour entrees plats ou desserts
+app.get("/:arrayName", (request, response) => {
+  fs.readFile("data.json", (err, data) => {
+    if (err) {
+      erreur();
+    } else {
+      const existingData = JSON.parse(data);
+      response.status(200).json(existingData[request.params.arrayName]);
+    }
+  });
 });
 
+// C'est une route qui me permet d'insérer de la données dans mon fichier data.json
+// POST "/data"
+// Ex: http://localhost:3000/:arrayName
+app.post("/:arrayName", (request, response) => {
+  fs.readFile("data.json", (err, data) => {
+    if (err) {
+      erreur();
+    } else {
+      const existingData = JSON.parse(data);
+      existingData[request.params.arrayName].push(request.body);
+      fs.writeFile("data.json", JSON.stringify(existingData), (writeErr) => {
+        if (writeErr) {
+          response.status(500).json({
+            message: "Une erreur est survenue lors de l'écriture des données",
+          });
+        } else {
+          response.status(200).json({
+            message: "Les données ont été ajouté avec succès",
+          });
+        }
+      });
+    }
+  });
+});
+
+function erreur() {
+  response.status(500).json({
+    message: "Erreur lors de la lecture des données",
+    error: err,
+  });
+}
+
+module.exports = app;
