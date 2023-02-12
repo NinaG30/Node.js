@@ -1,5 +1,6 @@
-const app = require ('./app');
+const app = require('./app');
+const port = 3000;
 
-app.listen(3000, () => {  
-    console.log("L'application tourne sur le port 3000");
-  });
+app.listen(port, ()=>{
+    console.log('Tourne sur le port ' + port);
+})

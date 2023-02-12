@@ -1,0 +1,45 @@
+{
+  "data": [
+    { "id": 1, "name": "a" },
+    { "id": 2, "name": "b" },
+    { "id": 3, "name": "c" },
+    { "id": 4, "name": "d" },
+    { "id": 5, "name": "e" }
+  ],
+  "couleur": [
+    { "id": 1, "name": "rouge" },
+    { "id": 2, "name": "violet" },
+    { "id": 3, "name": "bleu" },
+    { "id": 4, "name": "orange" },
+    { "id": 5, "name": "beige" }
+  ],
+  "manga": [
+    { "id": 1, "name": "naruto" },
+    { "id": 2, "name": "nana" },
+    { "id": 3, "name": "mars" },
+    { "id": 4, "name": "fruit basket" },
+    { "id": 5, "name": "SDK" }
+  ],
+  "main": [
+    { "id": 1, "name": "ongle" },
+    { "id": 2, "name": "phalange" },
+    { "id": 3, "name": "vernis" },
+    { "id": 4, "name": "doigt" },
+    { "id": 5, "name": "os" }
+  ],
+  "cadeau": [
+    { "id": 1, "name": "bulle" },
+    { "id": 2, "name": "whisky" },
+    { "id": 3, "name": "peluche" },
+    { "id": 4, "name": "bijou" },
+    { "id": 5, "name": "jeux" },
+    { "id": 6, "name": "bulle" }
+  ],
+  "cheveux": [
+    { "id": 1, "name": "blond" },
+    { "id": 2, "name": "auburn" },
+    { "id": 3, "name": "venitien" },
+    { "id": 4, "name": "roux" },
+    { "id": 5, "name": "brun" }
+  ]  
+}

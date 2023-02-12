@@ -1,77 +1,48 @@
+//importe le module "express" qui permet d'avoir les méthodes du CRUD
 const express = require("express");
+
+// Importe le module "fs" permettant d'avoir des méthodes permettant la manipulation des fichiers
 const fs = require("fs");
+
+// Initialise une nouvelle app
 const app = express();
+
+// Importe le module 'body-parser'
 const bodyParser = require("body-parser");
+
+// Permet à l'app de pouvoir lire ce que contient "body"
 app.use(bodyParser.json());
 
-// C'est une route qui me permet de récupérer une data par son id
-// GET "/data/:id"
-// Ex: http://localhost:3000/:arrayName/:id //changer pour entrees plats ou desserts /l'id voulu
+// Const qui permettent de récupérer le contenu de chaque fichier dans le dossier "routes"
+const dataRoutes = require("./src/routes/dataRoutes");
+const cheveuxRoutes = require("./src/routes/cheveuxRoutes");
+const mainRoutes = require("./src/routes/mainRoutes");
+const cadeauRoutes = require("./src/routes/cadeauRoutes");
+const mangaRoutes = require("./src/routes/mangaRoutes");
+const couleurRoutes = require("./src/routes/couleurRoutes");
 
-app.get("/:arrayName/:id", (request, response) => {
-  fs.readFile("data.json", (err, data) => {
-    if (err) {
-      erreur();
-    } else {
-      const jsonData = JSON.parse(data);
-      const dataById = jsonData[request.params.arrayName].find(        
-        (obj) => obj.id === parseInt(request.params.id)
-      );
-      if (dataById) {
-        response.status(200).json(dataById);
-      } else {
-        response.status(404).json({
-          message: "Aucun objet trouvé avec cet id",
-        });
-      }
-    }
-  });
-});
+// Ces use() permettent à l'app d'utiliser ce que contient chaque fichier 
+app.use(dataRoutes);
+app.use(cheveuxRoutes);
+app.use(mainRoutes);
+app.use(cadeauRoutes);
+app.use(mangaRoutes);
+app.use(couleurRoutes);
 
-// C'est une route qui permet d'afficher un des tableaux de mon fichier data.json
-// POST "/data"
-// Ex: http://localhost:3000/:arrayName //changer pour entrees plats ou desserts
-app.get("/:arrayName", (request, response) => {
-  fs.readFile("data.json", (err, data) => {
+// Route pour afficher toutes les données du fichier data.json
+// Ex : http://localhost:3000/data
+app.get("/data", (request, response) => {
+  fs.readFile("./src/model/data.json", (err, data) => {
     if (err) {
-      erreur();
-    } else {
-      const existingData = JSON.parse(data);
-      response.status(200).json(existingData[request.params.arrayName]);
-    }
-  });
-});
-
-// C'est une route qui me permet d'insérer de la données dans mon fichier data.json
-// POST "/data"
-// Ex: http://localhost:3000/:arrayName
-app.post("/:arrayName", (request, response) => {
-  fs.readFile("data.json", (err, data) => {
-    if (err) {
-      erreur();
-    } else {
-      const existingData = JSON.parse(data);
-      existingData[request.params.arrayName].push(request.body);
-      fs.writeFile("data.json", JSON.stringify(existingData), (writeErr) => {
-        if (writeErr) {
-          response.status(500).json({
-            message: "Une erreur est survenue lors de l'écriture des données",
-          });
-        } else {
-          response.status(200).json({
-            message: "Les données ont été ajouté avec succès",
-          });
-        }
+      response.status(500).json({
+        message: "Erreur de lecture",
+        error: err,
       });
+    } else {
+      response.status(200).json(JSON.parse(data));
     }
   });
 });
 
-function erreur() {
-  response.status(500).json({
-    message: "Erreur lors de la lecture des données",
-    error: err,
-  });
-}
-
+// Permet d'exporter ce que contient ce fichier pour qu'il soit ensuite possiblement utilisé ailleurs
 module.exports = app;
